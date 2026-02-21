@@ -21,12 +21,12 @@ public class NPCBrain : MonoBehaviour
         //If no task, choose a new one
         if (taskState.CurrentTask != null)
         {
-            //taskState.TryStart(PickRandomTask());
+            taskState.TryStart(PickRandomTask());
         }
     }
 
-    //private INPCTask PickRandomTask()
-    //{
-    //    // return new NPCIdleTask(durationMin: 1.5f, durationMax: 4.0f);
-    //}
+    private INPCTask PickRandomTask()
+    {
+        return new NPCIdleTask(durationMin: 1.5f, durationMax: 4.0f);
+    }
 }
