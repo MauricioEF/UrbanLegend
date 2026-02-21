@@ -10,6 +10,10 @@ public class PlayerNPCTargeting : MonoBehaviour
     private IHighlighteable _currentHighlightedNPC;
     private Transform _currentTargetTransform;
 
+    public IKillable FocusedKillable
+    {
+        get; private set;
+    }
     private void Awake()
     {
         if (playerOrigin == null)
@@ -31,7 +35,8 @@ public class PlayerNPCTargeting : MonoBehaviour
             if (col == null)
                 continue;
 
-
+            if (((1 << col.gameObject.layer) & npcLayerMask.value) == 0)
+                continue;
             var npcRoot = col.GetComponentInParent<NPCIdentity>();
             if (npcRoot == null)
                 continue;
@@ -74,6 +79,7 @@ public class PlayerNPCTargeting : MonoBehaviour
         _currentHighlightedNPC = null;
         _currentTargetTransform = nextTarget;
 
+        FocusedKillable = _currentTargetTransform != null ? _currentTargetTransform.GetComponent<IKillable>() : null;
         //Now we highlight the new NPC
         if (_currentTargetTransform != null)
         {
