@@ -11,6 +11,6 @@ public interface INPCTask
     void OnEnter(NPCContext context);
     void Tick(NPCContext context, float dt);
     void OnExit(NPCContext context);
-    void IsDone(NPCContext context);
+    bool IsDone(NPCContext context);
     NPCTaskResult GetResult(NPCContext context);
 }
