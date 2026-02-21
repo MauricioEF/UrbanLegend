@@ -30,15 +30,29 @@ public class PlayerNPCTargeting : MonoBehaviour
     {
         Transform best = null;
         float bestRangeScore = float.PositiveInfinity;
+
+        //removeList when iterating
+        var toRemove = (List<Collider2D>)null;
+
         foreach (var col in _npcsInRange)
         {
             if (col == null)
+            {
+                toRemove ??= new List<Collider2D>();
+                toRemove.Add(col);
                 continue;
+            }
 
             if (((1 << col.gameObject.layer) & npcLayerMask.value) == 0)
                 continue;
             var npcRoot = col.GetComponentInParent<NPCIdentity>();
             if (npcRoot == null)
+                continue;
+
+            var killable = npcRoot.GetComponent<IKillable>();
+            if (killable == null)
+                continue;
+            if (!killable.IsAlive)
                 continue;
             var npcTransform = npcRoot.transform;
             //calculate Distance Score based on distance + cardinal penalty
@@ -65,6 +79,13 @@ public class PlayerNPCTargeting : MonoBehaviour
                 }
             }
         }
+        if (toRemove != null)
+        {
+            foreach (var c in toRemove)
+            {
+                _npcsInRange.Remove(c);
+            }
+        }
         return best;
     }
     private void ApplyHighlight(Transform nextTarget)
@@ -88,6 +109,14 @@ public class PlayerNPCTargeting : MonoBehaviour
         }
     }
 
-    public void NotifyEnter(Collider2D other) => _npcsInRange.Add(other);
-    public void NotifyExit(Collider2D other) => _npcsInRange.Remove(other);
+    public void NotifyEnter(Collider2D other)
+    {
+        if (other != null)
+            _npcsInRange.Add(other);
+    }
+    public void NotifyExit(Collider2D other)
+    {
+        if (other != null)
+            _npcsInRange.Remove(other);
+    }
 }
