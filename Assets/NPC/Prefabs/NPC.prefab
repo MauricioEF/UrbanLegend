@@ -250,6 +250,8 @@ GameObject:
   - component: {fileID: 3973476385426308678}
   - component: {fileID: 7383654836475785849}
   - component: {fileID: 5210919907549848331}
+  - component: {fileID: 6528612659241625378}
+  - component: {fileID: 8156557231115550735}
   m_Layer: 6
   m_Name: NPC
   m_TagString: Untagged
@@ -384,5 +386,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCKillable
   animator: {fileID: 5868143799008454397}
-  collidersToDisable: []
+  collidersToDisable:
+  - {fileID: 2680743129517508883}
   behavioursToDisable: []
+--- !u!114 &6528612659241625378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129879901203711531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c45b4daecfbcc42408e97502bf914446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCTaskState
+--- !u!114 &8156557231115550735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129879901203711531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a047cc28beeb684685aab39333dd77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCBrain
+  taskState: {fileID: 6528612659241625378}
