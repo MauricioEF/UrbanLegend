@@ -17,4 +17,14 @@ public class NPCIdentity : MonoBehaviour
     }
 
     public Transform Root => transform;
+
+    private void OnEnable()
+    {
+        NPCRegistry.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        NPCRegistry.Unregister(this);
+    }
 }
