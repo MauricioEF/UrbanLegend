@@ -35,5 +35,6 @@ public class NPCKillable : MonoBehaviour, IKillable
         //animation (when set)
         if (animator != null)
             animator.SetTrigger("Die");
+        Destroy(gameObject);
     }
 }
