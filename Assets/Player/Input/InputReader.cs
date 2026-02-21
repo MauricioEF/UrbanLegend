@@ -8,7 +8,8 @@ public class InputReader : MonoBehaviour
     {
         get; private set;
     }
-    private bool _killRequested;
+    private int _killRequestedFrame = -1;
+    private bool _killConsumedThisFrame;
 
     private void Awake()
     {
@@ -22,6 +23,24 @@ public class InputReader : MonoBehaviour
         _controller.Base.Kill.performed += OnKill;
     }
 
+    private void OnDisable()
+    {
+        if (_controller == null)
+            return;
+        _controller.Base.Move.performed -= OnMove;
+        _controller.Base.Move.canceled -= OnMove;
+        _controller.Base.Kill.performed -= OnKill;
+    }
+
+    private void LateUpdate()
+    {
+        //If kill button was pressed, but nobody consumed it this frame, discard it
+        if (_killRequestedFrame != Time.frameCount)
+        {
+            _killConsumedThisFrame = true;
+        }
+    }
+
     private void OnMove(InputAction.CallbackContext context)
     {
         Move = context.ReadValue<Vector2>();
@@ -29,14 +48,17 @@ public class InputReader : MonoBehaviour
 
     private void OnKill(InputAction.CallbackContext context)
     {
-        Debug.Log("Trying to Kill");
+        _killRequestedFrame = Time.frameCount;
+        _killConsumedThisFrame = false;
     }
 
     public bool ConsumeKillRequest()
     {
-        if (!_killRequested)
+        if (_killRequestedFrame != Time.frameCount)
             return false;
-        _killRequested = false;
+        if (_killConsumedThisFrame)
+            return false;
+        _killConsumedThisFrame = true;
         return true;
     }
 }
