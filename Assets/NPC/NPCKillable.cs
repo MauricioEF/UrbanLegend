@@ -6,6 +6,7 @@ public class NPCKillable : MonoBehaviour, IKillable
     [SerializeField] private Collider2D[] collidersToDisable;
     [SerializeField] private Behaviour[] behavioursToDisable;
 
+
     public bool IsAlive
     {
         get; private set;
@@ -35,6 +36,7 @@ public class NPCKillable : MonoBehaviour, IKillable
         //animation (when set)
         if (animator != null)
             animator.SetTrigger("Die");
+        ScoreManager.Instance.AddPoints();
         Destroy(gameObject);
     }
 }
