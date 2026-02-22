@@ -14,3 +14,11 @@ public interface INPCTask
     bool IsDone(NPCContext context);
     NPCTaskResult GetResult(NPCContext context);
 }
+
+public interface IScoreTaggedTask
+{
+    NPCActionKind ActionKind
+    {
+        get;
+    }
+}

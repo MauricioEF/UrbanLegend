@@ -1,9 +1,18 @@
 using UnityEngine;
 
+public enum NPCActionKind
+{
+    None,
+    Idle,
+    Walking,
+    Smoking,
+    Drinking,
+    Fighting
+}
 public class NPCTaskState : MonoBehaviour
 {
     public INPCTask CurrentTask => _currentTask;
-    public string CurrentTaskName => _currentTask.Name ?? "None";
+    public string CurrentTaskName => _currentTask?.Name ?? "None";
 
     private INPCTask _currentTask;
     private NPCTaskCancel _cancel;
@@ -16,11 +25,12 @@ public class NPCTaskState : MonoBehaviour
 
     private void Update()
     {
+
         if (_context == null)
             return;
+
         if (_currentTask == null)
             return;
-
         if (_context.Killable != null && !_context.Killable.IsAlive)
         {
             CancelCurrent("Killed");
@@ -32,6 +42,7 @@ public class NPCTaskState : MonoBehaviour
             var result = _currentTask.GetResult(_context);
             SwitchTo(null, $"Task ended: {result}");
         }
+
     }
     public bool TryStart(INPCTask nextTask)
     {
@@ -67,6 +78,14 @@ public class NPCTaskState : MonoBehaviour
         {
             _currentTask.OnEnter(_context);
         }
-        Debug.Log($"{CurrentTask} ({reason})");
+    }
+
+    public NPCStateSnapshot GetSnapShot()
+    {
+        var task = _currentTask;
+
+        var name = task?.Name ?? "None";
+        var kind = (task as IScoreTaggedTask)?.ActionKind ?? NPCActionKind.None;
+        return new NPCStateSnapshot(name, kind);
     }
 }
