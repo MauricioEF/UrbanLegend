@@ -23,6 +23,7 @@ public class NPCWalkToRandomNPCTask : INPCTask, IScoreTaggedTask
         context.Destination = null;
 
         context.Mover.FollowTarget(_targetNPC.transform);
+        context.AnimatorDriver.SetAction(NPCActionKind.Walking);
     }
 
     public void Tick(NPCContext context, float dt)

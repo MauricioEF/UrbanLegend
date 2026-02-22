@@ -8,6 +8,6 @@ public class NPCSmokeTask : NPCTimedTaskBase, IScoreTaggedTask
     public override void OnEnter(NPCContext context)
     {
         base.OnEnter(context);
-        //Here we could play the animator to make it smoking
+        context.AnimatorDriver.SetAction(NPCActionKind.Smoking);
     }
 }

@@ -22,7 +22,7 @@ public class NPCIdleTask : INPCTask, IScoreTaggedTask
         float duration = Random.Range(_min, _max);
         _endTime = Time.time + duration;
         context.Mover?.Stop();
-        //Here we can set the idle animation
+        context.AnimatorDriver.SetAction(NPCActionKind.Idle);
     }
 
     public void Tick(NPCContext context, float dt)

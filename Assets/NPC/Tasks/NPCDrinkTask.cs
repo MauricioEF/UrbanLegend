@@ -8,6 +8,6 @@ public class NPCDrinkTask : NPCTimedTaskBase, IScoreTaggedTask
     public override void OnEnter(NPCContext context)
     {
         base.OnEnter(context);
-        //Animator to play Drink
+        context.AnimatorDriver.SetAction(NPCActionKind.Drinking);
     }
 }
