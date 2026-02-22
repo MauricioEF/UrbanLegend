@@ -25,8 +25,9 @@ public class NPCBrain : MonoBehaviour
         var mover = GetComponent<NPCMover>();
         var identity = GetComponent<NPCIdentity>();
         var killable = GetComponent<NPCKillable>();
+        var animatorDriver = GetComponent<NPCAnimatorDriver>();
 
-        _context = new NPCContext(transform, rb, mover, identity, killable);
+        _context = new NPCContext(transform, rb, mover, identity, killable, animatorDriver);
         taskState.Init(_context);
     }
     private void Update()

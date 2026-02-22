@@ -30,6 +30,7 @@ public class NPCWalkToRandomPointTask : INPCTask, IScoreTaggedTask
         context.Mover.MoveToPoint(destination);
         _failed = false;
         _failReason = null;
+        context.AnimatorDriver.SetAction(NPCActionKind.Walking);
     }
     public void Tick(NPCContext context, float dt)
     {
