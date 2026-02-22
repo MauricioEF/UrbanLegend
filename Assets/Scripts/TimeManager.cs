@@ -6,7 +6,7 @@ public class TimeManager : MonoBehaviour
 {
     
     public static TimeManager Instance;
-    private int Timer = 60;
+    private int Timer = 30;
     private bool Stopped = false;
     public TextMeshProUGUI canvas;
     public float counter;
@@ -48,7 +48,7 @@ public class TimeManager : MonoBehaviour
         if (Timer == 0)
         {
             StopTime();
-
+            GameManager.Instance.TimeLimit(ScoreManager.Instance.CurrentScore());
         }
 
         counter += Time.deltaTime;
