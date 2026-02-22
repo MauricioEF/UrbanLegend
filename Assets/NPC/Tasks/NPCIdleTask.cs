@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NPCIdleTask : INPCTask
+public class NPCIdleTask : INPCTask, IScoreTaggedTask
 {
     public string Name => "Idle";
     public int Priority => 0;
@@ -8,6 +8,8 @@ public class NPCIdleTask : INPCTask
     private readonly float _min;
     private readonly float _max;
     private float _endTime;
+
+    public NPCActionKind ActionKind => NPCActionKind.Idle;
 
     public NPCIdleTask(float durationMin, float durationMax)
     {

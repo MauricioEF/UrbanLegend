@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class NPCKillable : MonoBehaviour, IKillable
 {
+    [SerializeField] private NPCTaskState taskState;
     [SerializeField] private Animator animator;
     [SerializeField] private Collider2D[] collidersToDisable;
     [SerializeField] private Behaviour[] behavioursToDisable;
@@ -18,6 +19,9 @@ public class NPCKillable : MonoBehaviour, IKillable
             return;
         IsAlive = false;
 
+        var snap = taskState != null ? taskState.GetSnapShot() : default;
+        ScoreManager.Instance.AddPoints(snap.ActionKind);
+        taskState.CancelCurrent("Killed");
         //Disable everything: movement, interactions, logic, etc.
         if (behavioursToDisable != null)
         {
@@ -36,7 +40,6 @@ public class NPCKillable : MonoBehaviour, IKillable
         //animation (when set)
         if (animator != null)
             animator.SetTrigger("Die");
-        ScoreManager.Instance.AddPoints();
         Destroy(gameObject);
     }
 }

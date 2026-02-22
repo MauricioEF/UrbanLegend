@@ -99,6 +99,15 @@ public class NPCMover : MonoBehaviour
         _destination = point;
     }
 
+    public void FollowTarget(Transform target)
+    {
+        ResetFlags();
+        Mode = MoveMode.FollowTarget;
+        _target = target;
+        _destination = target != null ? (Vector2)target.position : rb.position;
+        _nextRepathTime = Time.time; // update immediately
+    }
+
     public void Stop()
     {
         Mode = MoveMode.None;

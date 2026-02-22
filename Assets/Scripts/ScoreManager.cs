@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -19,14 +18,23 @@ public class ScoreManager : MonoBehaviour
         Instance = this;
     }
 
-    public int CurrentScore() 
+    public int CurrentScore()
     {
-     return Score;
+        return Score;
     }
 
-    public void AddPoints() 
+    public void AddPoints(NPCActionKind kind)
     {
-        Score++;
+        int points = kind switch
+        {
+            NPCActionKind.Smoking => 5,
+            NPCActionKind.Drinking => 4,
+            NPCActionKind.Fighting => 8,
+            NPCActionKind.Walking => -3,
+            NPCActionKind.Idle => -5,
+            _ => 1
+        };
+        Score += points;
         UpdateUI();
     }
 
@@ -35,7 +43,7 @@ public class ScoreManager : MonoBehaviour
         Score = 0;
     }
 
-    public void UpdateUI() 
+    public void UpdateUI()
     {
         canvas.text = $"Score: {Score}";
     }
