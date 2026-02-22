@@ -1,15 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverMenu : MonoBehaviour
+public class GameOverManager : MonoBehaviour
 {
-
-    public void Retry() 
+    public void Retry()
     {
         SceneManager.LoadScene(1);
     }
 
-    public void Menu() 
+    public void Menu()
     {
         SceneManager.LoadScene(0);
     }
