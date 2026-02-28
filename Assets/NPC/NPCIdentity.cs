@@ -6,7 +6,6 @@ public enum NPCKind
 }
 public class NPCIdentity : MonoBehaviour
 {
-    [SerializeField]
     public string NpcKind
     {
         get; private set;
