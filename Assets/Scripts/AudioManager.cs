@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     public void ChangeSfxVolume(float volume)
